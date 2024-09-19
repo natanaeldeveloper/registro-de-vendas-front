@@ -1,4 +1,5 @@
 // Vuetify
+import '@mdi/font/css/materialdesignicons.css' // Importar CSS dos ícones MDI
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -12,19 +13,24 @@ export const vuetify = createVuetify({
     themes: {
       light: {
         colors: {
-          primary: '#1976D2', // Azul escuro
-          secondary: '#2196F3', // Azul claro
-          accent: '#82B1FF', // Azul claro para destaques
-          error: '#FF5252',
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FFC107'
+          primary: '#003366', // Azul marinho
+          secondary: '#007BB5', // Azul médio
+          accent: '#00A3E0', // Azul claro
+          error: '#E57373', // Vermelho suave
+          info: '#B0BEC5', // Cinza claro
+          success: '#4CAF50', // Verde escuro
+          warning: '#FFC107' // Amarelo dourado
         }
       },
       dark: {
         colors: {
-          primary: '#1E1E1E',
-          secondary: '#333333'
+          primary: '#001F3F', // Azul escuro quase preto
+          secondary: '#003366', // Azul marinho
+          accent: '#0099CC', // Azul claro
+          error: '#E57373', // Vermelho suave
+          info: '#90A4AE', // Cinza médio
+          success: '#66BB6A', // Verde oliva claro
+          warning: '#FFB74D' // Laranja queimado
         }
       }
     }

@@ -2,7 +2,10 @@
 import type { BuyerCreateBody } from '@/shared/interfaces'
 import { buyerService } from '@/shared/services/buyer/buyerService'
 import { useField, useForm } from 'vee-validate'
+import { getCurrentInstance } from 'vue'
 import * as yup from 'yup'
+
+const { proxy } = getCurrentInstance()!
 
 const { handleSubmit, handleReset } = useForm({
   validationSchema: yup.object({
@@ -17,15 +20,25 @@ const lastName = useField('lastName')
 const email = useField('email')
 
 const submit = handleSubmit((values) => {
-  buyerService.register(values as BuyerCreateBody).then((data) => {
-    alert(`Usuário registrado com sucesso: ${JSON.stringify(data)}`)
-  })
+  proxy?.$overlay.start()
+  buyerService
+    .register(values as BuyerCreateBody)
+    .then((data) => {
+      proxy?.$modalFeedback.showModal('SUCCESS', {
+        title: data.success,
+        message: data.message
+      })
+      handleReset()
+    })
+    .finally(() => {
+      proxy?.$overlay.stop()
+    })
 })
 </script>
 
 <template>
   <v-container>
-    <v-card elevation="0">
+    <v-card elevation="0" max-width="600" class="mx-auto">
       <v-card-title class="mb-5">
         <h2 class="text-h6">Cadastrar cliente</h2>
       </v-card-title>
@@ -74,7 +87,9 @@ const submit = handleSubmit((values) => {
               </v-btn>
             </v-col>
             <v-col class="px-2 py-2">
-              <v-btn class="w-100" color="primary" type="submit"> Salvar </v-btn>
+              <v-btn class="w-100" color="primary" type="submit" :loading="$overlay.value">
+                Salvar
+              </v-btn>
             </v-col>
           </v-row>
         </form>

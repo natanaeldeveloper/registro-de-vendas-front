@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RegisterBuyer from '@/components/buyers/register/registerBuyer.vue'
+import RegisterBuyer from '@/components/buyers/register/register.vue'
 </script>
 
 <template>
