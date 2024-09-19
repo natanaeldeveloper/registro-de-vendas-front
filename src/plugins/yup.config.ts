@@ -27,7 +27,7 @@ const translation = {
     positive: '${path} deve ser positivo'
   },
   string: {
-    email: '${path} não contém um e-mail inválido',
+    email: 'Este e-mail não é válido',
     length: '${path} deve conter exatamente ${length} caracteres',
     lowercase: '${path} deve ser maiúsculo',
     max: '${path} deve conter no máximo ${max} caracteres',
