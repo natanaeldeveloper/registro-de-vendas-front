@@ -10,16 +10,18 @@ export const vuetify = createVuetify({
   directives,
   theme: {
     defaultTheme: 'light',
+
     themes: {
       light: {
         colors: {
-          primary: '#003366', // Azul marinho
-          secondary: '#007BB5', // Azul médio
+          primary: '#9529FF', // Azul marinho
+          secondary: '#4CC9F0', // Azul médio
           accent: '#00A3E0', // Azul claro
-          error: '#E57373', // Vermelho suave
-          info: '#B0BEC5', // Cinza claro
-          success: '#4CAF50', // Verde escuro
-          warning: '#FFC107' // Amarelo dourado
+          error: '#B8001C', // Vermelho suave
+          info: '#4CC9F0', // Cinza claro
+          success: '#8EDF34', // Verde escuro
+          warning: '#FFC719', // Amarelo dourado
+          dark01: '#1D1D1D'
         }
       },
       dark: {
