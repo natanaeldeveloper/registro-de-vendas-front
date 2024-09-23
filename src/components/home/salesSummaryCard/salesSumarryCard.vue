@@ -72,18 +72,19 @@ const navigateToPageSalesSummary = (id: number) => {
   </div>
 
   <v-slide-group>
-    <v-slide-group-item v-for="item in salesSummaryList" :key="item.id" v-slot="{ toggle }">
-      <v-card color="dark01" width="70vw" max-width="350px" class="mr-4" @click="toggle">
+    <v-slide-group-item v-for="item in salesSummaryList" :key="item.id">
+      <v-card
+        color="dark01"
+        width="70vw"
+        max-width="350px"
+        class="mr-4"
+        @click="navigateToPageSalesSummary(item.id)"
+      >
         <v-card-text class="d-flex flex-column ga-2 justify-space-between h-100">
           <div>
             <div class="d-flex justify-space-between align-center">
               <h4 class="text-h6">{{ date.format(item.date, 'normalDate') }}</h4>
-              <v-btn
-                size="small"
-                icon="mdi-chevron-right"
-                variant="plain"
-                @click="navigateToPageSalesSummary(item.id)"
-              ></v-btn>
+              <v-icon size="small" icon="mdi-chevron-right" variant="plain"></v-icon>
             </div>
             <div class="d-flex justify-space-between align-center">
               <h4 class="text-subtitle-2" style="color: #a5a5a5">{{ limitText(item.name) }}</h4>
@@ -94,11 +95,11 @@ const navigateToPageSalesSummary = (id: number) => {
             <div class="w-100 d-flex ga-1 mb-2">
               <div
                 class="bg-success rounded-lg"
-                :style="`width: ${(item.values.paid / item.values.total) * 100}%; height: 8px`"
+                :style="`width: ${(item.values.paid / item.values.total) * 100}%; height: 5px`"
               ></div>
               <div
                 class="bg-warning rounded-lg"
-                :style="`width: ${(item.values.pending / item.values.total) * 100}%; height: 8px`"
+                :style="`width: ${(item.values.pending / item.values.total) * 100}%; height: 5px`"
               ></div>
             </div>
             <div class="d-flex justify-space-between">

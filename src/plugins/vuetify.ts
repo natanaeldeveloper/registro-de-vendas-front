@@ -31,7 +31,7 @@ export const vuetify = createVuetify({
           warning: '#FFC719', // Amarelo dourado
           background: '#F2F2F2',
           contrast: '#1D1D1D',
-          contrast02: 'grey'
+          contrast02: '#E9E9E9'
         }
       },
       dark: {
@@ -44,8 +44,8 @@ export const vuetify = createVuetify({
           success: '#8EDF34', // Verde oliva claro
           warning: '#FFC719', // Laranja queimado
           background: '#131313',
-          contrast: 'grey',
-          contrast02: 'black'
+          contrast: '#FFFFFF',
+          contrast02: '#1D1D1D'
         }
       }
     }
