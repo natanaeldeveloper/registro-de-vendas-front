@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { getCurrentInstance, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useDate } from 'vuetify'
+
+const router = useRouter()
+
+const date = useDate()
 
 const salesSummaryList = ref([
   {
     id: 1,
     name: 'Congresso - Manhã',
-    date: '24 de Out',
+    date: new Date(),
     values: {
       paid: 40,
       pending: 60,
@@ -15,7 +21,7 @@ const salesSummaryList = ref([
   {
     id: 2,
     name: 'Pós EBD',
-    date: '25 de Out',
+    date: new Date(),
     values: {
       paid: 30,
       pending: 120,
@@ -25,11 +31,21 @@ const salesSummaryList = ref([
   {
     id: 3,
     name: 'Culto de Missões',
-    date: '26 de Out',
+    date: new Date(),
     values: {
       paid: 46.5,
       pending: 3.5,
       total: 50
+    }
+  },
+  {
+    id: 1,
+    name: 'Congresso - Manhã',
+    date: new Date(),
+    values: {
+      paid: 40,
+      pending: 60,
+      total: 100
     }
   }
 ])
@@ -40,6 +56,10 @@ const limitText = (value: string) => {
   }
 
   return value.slice(0, 30)
+}
+
+const navigateToPageSalesSummary = (id: number) => {
+  router.push({ name: 'resumoVendas', params: { id: `${id}` } })
 }
 </script>
 
@@ -57,8 +77,13 @@ const limitText = (value: string) => {
         <v-card-text class="d-flex flex-column ga-2 justify-space-between h-100">
           <div>
             <div class="d-flex justify-space-between align-center">
-              <h4 class="text-h6">{{ item.date }}</h4>
-              <v-btn size="small" icon="mdi-chevron-right" variant="plain"></v-btn>
+              <h4 class="text-h6">{{ date.format(item.date, 'normalDate') }}</h4>
+              <v-btn
+                size="small"
+                icon="mdi-chevron-right"
+                variant="plain"
+                @click="navigateToPageSalesSummary(item.id)"
+              ></v-btn>
             </div>
             <div class="d-flex justify-space-between align-center">
               <h4 class="text-subtitle-2" style="color: #a5a5a5">{{ limitText(item.name) }}</h4>

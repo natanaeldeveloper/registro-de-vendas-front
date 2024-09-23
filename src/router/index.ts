@@ -1,7 +1,6 @@
-import BuyerListView from '@/views/buyer/BuyerListView.vue'
-import BuyerRegisterView from '@/views/buyer/BuyerRegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import SalesSummaryView from '@/views/SalesSummaryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,17 +8,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
-      children: [
-        {
-          path: 'clientes',
-          component: BuyerListView
-        },
-        {
-          path: 'clientes/novo',
-          component: BuyerRegisterView
-        }
-      ]
+      component: HomeView
+    },
+    {
+      path: '/resumo-vendas/:id',
+      name: 'resumoVendas',
+      component: SalesSummaryView
     }
   ]
 })
