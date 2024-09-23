@@ -1,39 +1,102 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const salesSummaryList = ref([
+  {
+    id: 1,
+    name: 'Congresso - Manhã',
+    date: '24 de Out',
+    values: {
+      paid: 40,
+      pending: 60,
+      total: 100
+    }
+  },
+  {
+    id: 2,
+    name: 'Pós EBD',
+    date: '25 de Out',
+    values: {
+      paid: 30,
+      pending: 120,
+      total: 150
+    }
+  },
+  {
+    id: 3,
+    name: 'Culto de Missões',
+    date: '26 de Out',
+    values: {
+      paid: 46.5,
+      pending: 3.5,
+      total: 50
+    }
+  }
+])
+
+const limitText = (value: string) => {
+  if (value.length >= 30) {
+    return value.slice(0, 30).concat('...')
+  }
+
+  return value.slice(0, 30)
+}
+</script>
+
 <template>
+  <div class="d-flex justify-space-between align-center">
+    <h5 class="text-subtitle-1 text-contrast my-4">Resumo de vendas</h5>
+    <v-btn density="compact" variant="plain" class="font-weight-regular" color="#a5a5a5"
+      >Ver tudo <v-icon>mdi-chevron-right</v-icon></v-btn
+    >
+  </div>
+
   <v-slide-group>
-    <v-slide-group-item v-for="n in 15" :key="n" v-slot="{ toggle }">
-      <v-card
-        color="dark01"
-        height="200"
-        width="70vw"
-        max-width="350px"
-        class="mr-4"
-        @click="toggle"
-      >
-        <v-card-text class="d-flex flex-column ga-2">
-          <div class="d-flex justify-space-between align-center">
-            <h4 class="text-h6">{{ n <= 9 ? '0'.concat(`${n}`) : n }} de Out</h4>
-            <v-btn size="small" icon="mdi-chevron-right" variant="plain"></v-btn>
-          </div>
-          <div class="d-flex justify-space-between align-center">
-            <h4 class="text-subtitle-2" style="color: #a5a5a5">Ação Social</h4>
-            <div>
-              <v-avatar size="small" color="primary" style="margin-right: -8px; z-index: 2"
-                >NA</v-avatar
-              >
-              <v-avatar size="small" color="success">PA</v-avatar>
-            </div>
-          </div>
-          <div class="d-flex flex-column ga-2 mt-4">
+    <v-slide-group-item v-for="item in salesSummaryList" :key="item.id" v-slot="{ toggle }">
+      <v-card color="dark01" width="70vw" max-width="350px" class="mr-4" @click="toggle">
+        <v-card-text class="d-flex flex-column ga-2 justify-space-between h-100">
+          <div>
             <div class="d-flex justify-space-between align-center">
-              <span class="font-weight-semibold" style="font-size: 18px">Pago R$ 40,00</span>
+              <h4 class="text-h6">{{ item.date }}</h4>
+              <v-btn size="small" icon="mdi-chevron-right" variant="plain"></v-btn>
             </div>
-            <v-progress-linear
-              rounded
-              model-value="40"
-              color="success"
-              height="8"
-            ></v-progress-linear>
-            <span style="color: #a5a5a5">Total esperado R$ 75,00</span>
+            <div class="d-flex justify-space-between align-center">
+              <h4 class="text-subtitle-2" style="color: #a5a5a5">{{ limitText(item.name) }}</h4>
+            </div>
+          </div>
+
+          <div>
+            <div class="w-100 d-flex ga-1 mb-2">
+              <div
+                class="bg-success rounded-lg"
+                :style="`width: ${(item.values.paid / item.values.total) * 100}%; height: 8px`"
+              ></div>
+              <div
+                class="bg-warning rounded-lg"
+                :style="`width: ${(item.values.pending / item.values.total) * 100}%; height: 8px`"
+              ></div>
+            </div>
+            <div class="d-flex justify-space-between">
+              <div class="d-flex align-center ga-2">
+                <div class="bg-success rounded-sm" style="width: 10px; height: 10px"></div>
+                <span class="text-body-2">Pago</span>
+              </div>
+              <span class="text-body-2">R${{ item.values.paid.toFixed(2) }}</span>
+            </div>
+            <div class="d-flex justify-space-between">
+              <div class="d-flex align-center ga-2">
+                <div class="bg-warning rounded-sm" style="width: 10px; height: 10px"></div>
+                <span class="text-body-2">Pendente</span>
+              </div>
+              <span class="text-body-2">R${{ item.values.pending.toFixed(2) }}</span>
+            </div>
+            <div class="d-flex justify-space-between">
+              <div class="d-flex align-center ga-2">
+                <div class="bg-grey rounded-sm" style="width: 10px; height: 10px"></div>
+                <span class="text-body-2">Total previsto</span>
+              </div>
+              <span class="text-body-2 font-weight-bold">R${{ item.values.total.toFixed(2) }}</span>
+            </div>
           </div>
         </v-card-text>
       </v-card>

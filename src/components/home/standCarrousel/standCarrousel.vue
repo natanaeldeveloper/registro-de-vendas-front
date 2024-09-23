@@ -22,7 +22,13 @@ const standList = ref([
 </script>
 
 <template>
-  <v-carousel :show-arrows="false" hide-delimiter-background height="300" color="contrast">
+  <v-carousel
+    :show-arrows="false"
+    hide-delimiter-background
+    height="250"
+    color="contrast"
+    class="rounded-xl"
+  >
     <v-carousel-item v-for="item in standList" :key="item.id" class="px-1">
       <v-card
         elevation="0"

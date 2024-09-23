@@ -22,7 +22,8 @@ export const vuetify = createVuetify({
           success: '#8EDF34', // Verde escuro
           warning: '#FFC719', // Amarelo dourado
           background: '#F2F2F2',
-          contrast: '#1D1D1D'
+          contrast: '#1D1D1D',
+          contrast02: 'grey'
         }
       },
       dark: {
@@ -35,7 +36,8 @@ export const vuetify = createVuetify({
           success: '#8EDF34', // Verde oliva claro
           warning: '#FFC719', // Laranja queimado
           background: '#131313',
-          contrast: 'grey'
+          contrast: 'grey',
+          contrast02: 'black'
         }
       }
     }
