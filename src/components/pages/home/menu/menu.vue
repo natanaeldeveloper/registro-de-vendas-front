@@ -26,13 +26,13 @@ const options = ref([
 </script>
 
 <template>
-  <v-card color="transparent" elevation="0" class="mx-0">
-    <v-card-text class="d-flex ga-3 overflow-y-auto px-1">
+  <v-card variant="text" elevation="0" class="mx-0">
+    <v-card-text class="d-flex ga-2 overflow-y-auto px-1">
       <div class="d-flex flex-column ga-2" v-for="item in options" :key="item.label">
-        <v-btn color="contrast" variant="tonal" height="60" width="60" class="rounded-lg">
+        <v-btn color="primary" variant="tonal" height="60" width="60" class="rounded-lg">
           <v-icon size="30">{{ item.icon }}</v-icon>
         </v-btn>
-        <span class="text-center poppins-light text-contrast">{{ item.label }}</span>
+        <span class="text-center text-body-2">{{ item.label }}</span>
       </div>
     </v-card-text>
   </v-card>

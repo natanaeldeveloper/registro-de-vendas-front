@@ -1,19 +1,18 @@
+import { ROUTES } from '@/shared/consts'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import SalesSummaryView from '@/views/SalesSummaryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: ROUTES.HOME.NAME,
+      component: import('@/views/HomeView.vue')
     },
     {
-      path: '/resumo-vendas/:id',
-      name: 'resumoVendas',
-      component: SalesSummaryView
+      path: '/fluxo-de-caixa/:id',
+      name: ROUTES.CASH_FLOW.ROOT.NAME,
+      component: import('@/views/FluxoDeCaixaView.vue')
     }
   ]
 })

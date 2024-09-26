@@ -17,35 +17,36 @@ export const vuetify = createVuetify({
     }
   },
   theme: {
-    defaultTheme: 'dark',
-
+    defaultTheme: 'dark', // Define o tema padrão
     themes: {
       light: {
+        dark: false,
         colors: {
-          primary: '#9529FF', // Azul marinho
-          secondary: '#4CC9F0', // Azul médio
-          accent: '#00A3E0', // Azul claro
-          error: '#B8001C', // Vermelho suave
-          info: '#4CC9F0', // Cinza claro
-          success: '#8EDF34', // Verde escuro
-          warning: '#FFC719', // Amarelo dourado
-          background: '#F2F2F2',
-          contrast: '#1D1D1D',
-          contrast02: '#E9E9E9'
+          background: '#F9F9F9', // Fundo claro neutro
+          contrast: '#1C1C1E', // Fundo claro neutro
+          surface: '#FFFFFF', // Superfície branca clássica
+          primary: '#007AFF', // Azul iOS (equivalente ao botão)
+          secondary: '#5856D6', // Roxo suave, típico de Apple
+          accent: '#34C759', // Verde de ação
+          error: '#FF3B30', // Vermelho de erro
+          info: '#5AC8FA', // Azul informativo
+          success: '#4CD964', // Verde de sucesso
+          warning: '#FFCC00' // Amarelo de alerta
         }
       },
       dark: {
+        dark: true,
         colors: {
-          primary: '#9529FF', // Azul escuro quase preto
-          secondary: '#4CC9F0', // Azul marinho
-          accent: '#00A3E0', // Azul claro
-          error: '#B8001C', // Vermelho suave
-          info: '#4CC9F0', // Cinza médio
-          success: '#8EDF34', // Verde oliva claro
-          warning: '#FFC719', // Laranja queimado
-          background: '#131313',
-          contrast: '#FFFFFF',
-          contrast02: '#1D1D1D'
+          background: '#1C1C1E', // Preto com um leve tom de cinza
+          contrast: '#F9F9F9', // Fundo claro neutro
+          surface: '#2C2C2E', // Superfície ligeiramente mais clara
+          primary: '#0A84FF', // Azul destacado no tema escuro
+          secondary: '#5E5CE6', // Roxo vibrante para contraste
+          accent: '#30D158', // Verde de ação
+          error: '#FF453A', // Vermelho de erro
+          info: '#64D2FF', // Azul informativo mais claro
+          success: '#32D74B', // Verde de sucesso
+          warning: '#FFD60A' // Amarelo para alertas
         }
       }
     }

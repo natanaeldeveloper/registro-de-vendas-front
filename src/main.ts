@@ -10,12 +10,14 @@ import router from './router'
 import './plugins/yup.config'
 import { useModalFeedbackStore } from './stores/modalFeedback'
 import { useOverlayStore } from './stores/overlay'
+import VueApexCharts from 'vue3-apexcharts'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(vuetify)
 app.use(router)
+app.use(VueApexCharts)
 
 app.config.globalProperties.$modalFeedback = useModalFeedbackStore()
 app.config.globalProperties.$overlay = useOverlayStore()

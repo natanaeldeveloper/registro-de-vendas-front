@@ -13,7 +13,7 @@ const showSearch = ref(false)
           src="https://avatars.githubusercontent.com/u/51293075?v=4"
         ></v-img>
       </v-avatar>
-      <h6 class="text-h6 text-contrast">Natanael</h6>
+      <h6 class="text-h6">Natanael</h6>
     </div>
     <v-text-field
       v-if="showSearch"
@@ -22,27 +22,22 @@ const showSearch = ref(false)
       hide-details
       density="compact"
       variant="outlined"
+      color="primary"
       prepend-inner-icon="mdi-magnify"
-      color="contrast"
       @click:clear="showSearch = false"
+      clearable
+      rounded="xl"
     />
 
     <div>
       <v-btn
-        icon="mdi-close"
-        variant="plain"
-        color="contrast"
-        v-if="showSearch"
-        @click="showSearch = false"
-      ></v-btn>
-      <v-btn
         v-if="!showSearch"
         icon="mdi-magnify"
-        variant="plain"
-        color="contrast"
+        variant="text"
+        color="primary"
         @click="showSearch = true"
       ></v-btn>
-      <v-btn icon="mdi-bell-outline" variant="plain" color="contrast"></v-btn>
+      <v-btn icon="mdi-bell-outline" variant="text" color="primary"></v-btn>
     </div>
   </header>
 </template>

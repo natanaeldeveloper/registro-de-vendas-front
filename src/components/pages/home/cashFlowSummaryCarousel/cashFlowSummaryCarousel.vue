@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { getCurrentInstance, ref } from 'vue'
+import { ROUTES } from '@/shared/consts'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDate } from 'vuetify'
 
@@ -58,15 +59,15 @@ const limitText = (value: string) => {
   return value.slice(0, 30)
 }
 
-const navigateToPageSalesSummary = (id: number) => {
-  router.push({ name: 'resumoVendas', params: { id: `${id}` } })
+const navigateToPageCashFlow = (id: number) => {
+  router.push({ name: ROUTES.CASH_FLOW.ROOT.NAME, params: { id: `${id}` } })
 }
 </script>
 
 <template>
-  <div class="d-flex justify-space-between align-center">
-    <h5 class="text-subtitle-1 text-contrast my-4">Resumo de vendas</h5>
-    <v-btn density="compact" variant="plain" class="font-weight-regular" color="#a5a5a5"
+  <div class="d-flex justify-space-between align-center mt-2">
+    <span class="text-subtitle-1">Fluxos de caixa</span>
+    <v-btn density="comfortable" variant="text" class="font-weight-regular"
       >Ver tudo <v-icon>mdi-chevron-right</v-icon></v-btn
     >
   </div>
@@ -74,11 +75,10 @@ const navigateToPageSalesSummary = (id: number) => {
   <v-slide-group>
     <v-slide-group-item v-for="item in salesSummaryList" :key="item.id">
       <v-card
-        color="dark01"
         width="70vw"
         max-width="350px"
-        class="mr-4"
-        @click="navigateToPageSalesSummary(item.id)"
+        class="mr-3 my-3"
+        @click="navigateToPageCashFlow(item.id)"
       >
         <v-card-text class="d-flex flex-column ga-2 justify-space-between h-100">
           <div>
@@ -86,8 +86,10 @@ const navigateToPageSalesSummary = (id: number) => {
               <h4 class="text-h6">{{ date.format(item.date, 'normalDate') }}</h4>
               <v-icon size="small" icon="mdi-chevron-right" variant="plain"></v-icon>
             </div>
-            <div class="d-flex justify-space-between align-center">
-              <h4 class="text-subtitle-2" style="color: #a5a5a5">{{ limitText(item.name) }}</h4>
+            <div class="d-flex justify-space-between align-center my-1">
+              <v-chip color="contrast" variant="tonal" density="compact" size="small">{{
+                limitText(item.name)
+              }}</v-chip>
             </div>
           </div>
 
