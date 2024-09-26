@@ -1,7 +1,25 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useTheme } from 'vuetify'
 
 const showSearch = ref(false)
+
+const theme = useTheme() // Use a função para acessar o tema do Vuetify
+
+// Função para alternar temas
+const toggleTheme = () => {
+  const newTheme = theme.global.name.value === 'light' ? 'dark' : 'light'
+  theme.global.name.value = newTheme
+  localStorage.setItem('preferredTheme', newTheme)
+}
+
+// Restaura a preferência do tema
+onMounted(() => {
+  const savedTheme = localStorage.getItem('preferredTheme')
+  if (savedTheme) {
+    theme.global.name.value = savedTheme
+  }
+})
 </script>
 
 <template>
@@ -29,7 +47,7 @@ const showSearch = ref(false)
       rounded="xl"
     />
 
-    <div>
+    <div class="d-flex align-center">
       <v-btn
         v-if="!showSearch"
         icon="mdi-magnify"
@@ -38,6 +56,15 @@ const showSearch = ref(false)
         @click="showSearch = true"
       ></v-btn>
       <v-btn icon="mdi-bell-outline" variant="text" color="primary"></v-btn>
+      <v-switch
+        @change="toggleTheme"
+        hide-details
+        inset
+        density="compact"
+        color="primary"
+        class="ml-2"
+      >
+      </v-switch>
     </div>
   </header>
 </template>
