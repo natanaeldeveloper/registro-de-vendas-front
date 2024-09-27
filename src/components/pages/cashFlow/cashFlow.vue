@@ -14,8 +14,8 @@ import SalesSummary from './salesSummary/salesSummary.vue'
   <v-container>
     <CashClosing />
     <ProductStockSummary />
-    <SalesSummary />
   </v-container>
+  <SalesSummary />
 </template>
 
 <style scoped></style>
