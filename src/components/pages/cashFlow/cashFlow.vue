@@ -11,7 +11,7 @@ import SalesSummary from './salesSummary/salesSummary.vue'
     <Navbar />
     <NavigationCalendar />
   </v-container>
-  <v-container>
+  <v-container class="px-7">
     <CashClosing />
     <ProductStockSummary />
   </v-container>

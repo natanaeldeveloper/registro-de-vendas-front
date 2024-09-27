@@ -22,7 +22,7 @@ const sumarry = ref<null | string>(items.value[0])
 
 <template>
   <div class="d-flex ga-2 justify-space-between align-center my-5">
-    <h2 class="text-subtitle-1">Fluxo de caixa</h2>
+    <h2 class="text-subtitle-1 text-contrast02">Fluxo de caixa</h2>
     <v-menu>
       <template v-slot:activator="{ props }">
         <v-btn size="small" color="contrast" variant="outlined" v-bind="props">
@@ -60,18 +60,14 @@ const sumarry = ref<null | string>(items.value[0])
       <div class="bg-success rounded-xl" style="width: 10px; height: 10px"></div>
       <span class="text-subtitle-1">Pago</span>
     </div>
-    <span class="text-subtitle-1 font-weight-bold"
-      >R${{ salesSummary.values.paid.toFixed(2) }}</span
-    >
+    <span class="text-subtitle-1">R${{ salesSummary.values.paid.toFixed(2) }}</span>
   </div>
   <div class="d-flex justify-space-between align-center ga-3">
     <div class="d-flex align-center ga-2">
       <div class="bg-warning rounded-xl" style="width: 10px; height: 10px"></div>
       <span class="text-subtitle-1">Pendente</span>
     </div>
-    <span class="text-subtitle-1 font-weight-bold"
-      >R${{ salesSummary.values.pending.toFixed(2) }}</span
-    >
+    <span class="text-subtitle-1">R${{ salesSummary.values.pending.toFixed(2) }}</span>
   </div>
   <div class="d-flex justify-space-between align-center ga-3">
     <div class="d-flex align-center ga-2">

@@ -26,7 +26,7 @@ const estoque = ref([
 </script>
 
 <template>
-  <h2 class="text-subtitle-1 mt-4 mb-4">Estoque de produtos</h2>
+  <h2 class="text-subtitle-1 mt-8 mb-4 text-contrast02">Estoque de produtos</h2>
   <v-card variant="text" v-for="n in estoque" :key="n.product">
     <div class="d-flex align-center ga-2">
       <v-icon>mdi-food</v-icon>
