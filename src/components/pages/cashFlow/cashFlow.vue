@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import CashClosing from './cashClosing/cashClosing.vue'
 import Navbar from './navbar/navbar.vue'
 import NavigationCalendar from './navigationCalendar/navigationCalendar.vue'

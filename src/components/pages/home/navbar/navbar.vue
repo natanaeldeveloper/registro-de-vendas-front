@@ -62,7 +62,9 @@ onMounted(() => {
         inset
         density="compact"
         color="primary"
+        base-color="primary"
         class="ml-2"
+        prepend-icon="mdi-theme-light-dark"
       >
       </v-switch>
     </div>

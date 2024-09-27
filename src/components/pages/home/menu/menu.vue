@@ -27,7 +27,7 @@ const options = ref([
 
 <template>
   <v-card variant="text" elevation="0" class="mx-0">
-    <v-card-text class="d-flex ga-2 overflow-y-auto px-1">
+    <v-card-text class="d-flex justify-center ga-2 overflow-y-auto px-1">
       <div class="d-flex flex-column ga-2" v-for="item in options" :key="item.label">
         <v-btn color="primary" variant="tonal" height="60" width="60" class="rounded-lg">
           <v-icon size="30">{{ item.icon }}</v-icon>

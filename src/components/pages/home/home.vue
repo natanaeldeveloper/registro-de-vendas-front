@@ -6,14 +6,12 @@ import StandCarousel from './standCarousel/standCarousel.vue'
 </script>
 
 <template>
-  <v-card color="background">
-    <v-container class="pb-15">
-      <Navbar class="mb-3" />
-      <StandCarousel />
-      <Menu />
-      <CashFlowSummaryCarousel />
-    </v-container>
-  </v-card>
+  <v-container>
+    <Navbar class="mb-3" />
+    <StandCarousel />
+    <Menu />
+    <CashFlowSummaryCarousel />
+  </v-container>
 </template>
 
 <style lang="scss" scoped></style>

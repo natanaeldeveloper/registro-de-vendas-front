@@ -16,13 +16,13 @@ const salesSummary = ref({
   }
 })
 
-const items = ref(['Pós EBD', 'Culto a noite', 'Evento com muitas palavras para teste'])
+const items = ref(['Manhã', 'Noite'])
 const sumarry = ref<null | string>(items.value[0])
 </script>
 
 <template>
   <div class="d-flex ga-2 justify-space-between align-center my-5">
-    <h2 class="text-subtitle-1 text-contrast">Resultado das vendas</h2>
+    <h2 class="text-subtitle-1">Fluxo de caixa</h2>
     <v-menu>
       <template v-slot:activator="{ props }">
         <v-btn size="small" color="contrast" variant="outlined" v-bind="props">
@@ -78,8 +78,6 @@ const sumarry = ref<null | string>(items.value[0])
       <div class="bg-grey rounded-xl" style="width: 10px; height: 10px"></div>
       <span class="text-subtitle-1">Total previsto</span>
     </div>
-    <span class="text-subtitle-1 font-weight-bold"
-      >R${{ salesSummary.values.total.toFixed(2) }}</span
-    >
+    <span class="text-subtitle-1">R${{ salesSummary.values.total.toFixed(2) }}</span>
   </div>
 </template>

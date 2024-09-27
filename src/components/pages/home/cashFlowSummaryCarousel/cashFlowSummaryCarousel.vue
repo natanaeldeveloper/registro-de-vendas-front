@@ -66,7 +66,7 @@ const navigateToPageCashFlow = (id: number) => {
 
 <template>
   <div class="d-flex justify-space-between align-center mt-2">
-    <span class="text-subtitle-1">Fluxos de caixa</span>
+    <h2 class="text-subtitle-1">Fluxos de caixa</h2>
     <v-btn density="comfortable" variant="text" class="font-weight-regular"
       >Ver tudo <v-icon>mdi-chevron-right</v-icon></v-btn
     >
@@ -78,6 +78,8 @@ const navigateToPageCashFlow = (id: number) => {
         width="70vw"
         max-width="350px"
         class="mr-3 my-3"
+        variant="flat"
+        color="background"
         @click="navigateToPageCashFlow(item.id)"
       >
         <v-card-text class="d-flex flex-column ga-2 justify-space-between h-100">

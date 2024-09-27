@@ -52,22 +52,21 @@ const day = ref<null | number>(null)
       </div>
     </div>
     <v-slide-group class="mt-2">
-      <v-slide-item v-for="item in 20" :key="item">
-        <v-card variant="text" class="mx-0 my-1" @click="day = item" elevation="0">
+      <v-slide-group-item v-for="item in 20" :key="item">
+        <v-card variant="text" class="mx-0 my-1" @click="day = item">
           <v-card-text>
             <div class="d-flex flex-column ga-2 align-center">
               <span class="font-weight-bold text-subtitle-2">DOM</span>
               <div class="d-flex flex-column align-center">
-                <v-chip class="font-weight-bold" variant="tonal" v-if="day == item">{{
+                <v-chip class="font-weight-bold" :variant="day == item ? 'tonal' : 'text'">{{
                   item
                 }}</v-chip>
-                <v-chip class="font-weight-bold" variant="text" v-else>{{ item }}</v-chip>
                 <span class="text-h6">.</span>
               </div>
             </div>
           </v-card-text>
         </v-card>
-      </v-slide-item>
+      </v-slide-group-item>
     </v-slide-group>
   </v-card>
 </template>

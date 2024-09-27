@@ -8,14 +8,15 @@ import * as directives from 'vuetify/directives'
 export const vuetify = createVuetify({
   components,
   directives,
-  locale: {
-    locale: 'pt' // Define o idioma padrão para Português
-  },
-  date: {
-    locale: {
-      pt: 'pt-BR' // Define o formato de data no padrão brasileiro
-    }
-  },
+  // locale: {
+  //   locale: 'pt', // Define o idioma padrão para Português
+  //   fallback: 'en'
+  // },
+  // date: {
+  //   locale: {
+  //     pt: 'pt-BR' // Define o formato de data no padrão brasileiro
+  //   }
+  // },
   theme: {
     defaultTheme: 'dark', // Define o tema padrão
     themes: {
