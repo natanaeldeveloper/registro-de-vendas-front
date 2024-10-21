@@ -1,25 +1,15 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import { useTheme } from 'vuetify'
+import { ROUTES } from '@/shared/consts'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const showSearch = ref(false)
 
-const theme = useTheme() // Use a função para acessar o tema do Vuetify
+const router = useRouter()
 
-// Função para alternar temas
-const toggleTheme = () => {
-  const newTheme = theme.global.name.value === 'light' ? 'dark' : 'light'
-  theme.global.name.value = newTheme
-  localStorage.setItem('preferredTheme', newTheme)
+const navigateToRouteConfig = () => {
+  router.push({ name: ROUTES.CONFIG.NAME })
 }
-
-// Restaura a preferência do tema
-onMounted(() => {
-  const savedTheme = localStorage.getItem('preferredTheme')
-  if (savedTheme) {
-    theme.global.name.value = savedTheme
-  }
-})
 </script>
 
 <template>
@@ -52,21 +42,10 @@ onMounted(() => {
         v-if="!showSearch"
         icon="mdi-magnify"
         variant="text"
-        color="primary"
         @click="showSearch = true"
       ></v-btn>
-      <v-btn icon="mdi-bell-outline" variant="text" color="primary"></v-btn>
-      <v-switch
-        @change="toggleTheme"
-        hide-details
-        inset
-        density="compact"
-        color="primary"
-        base-color="primary"
-        class="ml-2"
-        prepend-icon="mdi-theme-light-dark"
-      >
-      </v-switch>
+
+      <v-btn icon="mdi-cog" variant="plain" @click="navigateToRouteConfig"></v-btn>
     </div>
   </header>
 </template>

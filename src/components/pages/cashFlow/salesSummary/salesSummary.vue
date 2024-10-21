@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { ROUTES } from '@/shared/consts'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const showSearch = ref(false)
+const router = useRouter()
+
+const navigateToPageSaleDetails = () => {
+  router.push({ name: ROUTES.SALE_DETAILS.ROOT.NAME, params: { id: 1 } })
+}
 </script>
 
 <template>
@@ -36,7 +43,7 @@ const showSearch = ref(false)
         v-for="item in 14"
         :key="item"
         elevation="0"
-        @click="null"
+        @click="navigateToPageSaleDetails"
         class="my-2 mx-3"
         variant="flat"
         color="background"
