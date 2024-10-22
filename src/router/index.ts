@@ -1,8 +1,7 @@
 import { ROUTES } from '@/shared/consts'
-import ConfiguracoesView from '@/views/ConfiguracoesView.vue'
-import DetalhesCompraView from '@/views/DetalhesCompraView.vue'
-import FluxoDeCaixaView from '@/views/FluxoDeCaixaView.vue'
-import HomeView from '@/views/HomeView.vue'
+import SettingsView from '@/views/SettingsView.vue'
+import StandDetailsView from '@/views/StandDetailsView.vue'
+import StandView from '@/views/StandView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -11,22 +10,22 @@ const router = createRouter({
     {
       path: '/',
       name: ROUTES.HOME.NAME,
-      component: HomeView
+      component: StandView
     },
     {
-      path: '/configuracao',
-      name: ROUTES.CONFIG.NAME,
-      component: ConfiguracoesView
+      path: '/bancas',
+      name: ROUTES.STANDS.ROOT.NAME,
+      component: StandView
     },
     {
-      path: '/fluxo-de-caixa/:id',
-      name: ROUTES.CASH_FLOW.ROOT.NAME,
-      component: FluxoDeCaixaView
+      path: '/bancas/:id',
+      name: ROUTES.STANDS.DETAILS.NAME,
+      component: StandDetailsView
     },
     {
-      path: '/detalhes-da-venda/:id',
-      name: ROUTES.SALE_DETAILS.ROOT.NAME,
-      component: DetalhesCompraView
+      path: '/config',
+      name: ROUTES.CONFIG.ROOT.NAME,
+      component: SettingsView
     }
   ]
 })

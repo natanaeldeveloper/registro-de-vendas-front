@@ -2,17 +2,17 @@ export const ROUTES = {
   HOME: {
     NAME: 'home'
   },
-  CONFIG: {
-    NAME: 'config'
-  },
-  CASH_FLOW: {
+  STANDS: {
     ROOT: {
-      NAME: 'cashFlow'
+      NAME: 'stands'
+    },
+    DETAILS: {
+      NAME: 'standDetails'
     }
   },
-  SALE_DETAILS: {
+  CONFIG: {
     ROOT: {
-      NAME: 'saleDetails'
+      NAME: 'configs'
     }
   }
 }
