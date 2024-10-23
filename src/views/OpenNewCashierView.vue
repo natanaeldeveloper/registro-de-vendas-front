@@ -167,6 +167,18 @@ const model = ref<any>(null)
                 menu-icon=""
                 :items="['Tapioca', 'Cachorro quente', 'Pastel']"
               >
+                <template v-slot:item="{ props, item }">
+                  <v-list-item v-bind="props" title="" subtitle="">
+                    <div class="d-flex ga-3 align-center">
+                      <v-card
+                        width="50"
+                        height="50"
+                        image="https://static.wixstatic.com/media/a85c73_8e4f04aa2906481bb6945e4660aeb9bf~mv2.jpg/v1/fill/w_618,h_450,fp_0.50_0.41,q_80,enc_auto/capa-tapioca-tradicional.jpg"
+                      ></v-card>
+                      <span class="text-body-2">{{ item.value }}</span>
+                    </div>
+                  </v-list-item>
+                </template>
               </v-autocomplete>
             </v-card-title>
             <v-card-text class="overflow-y-auto px-0">
@@ -191,6 +203,7 @@ const model = ref<any>(null)
                     density="compact"
                     variant="outlined"
                     class="w-100"
+                    :min="1"
                   ></v-number-input>
                 </div>
               </div>

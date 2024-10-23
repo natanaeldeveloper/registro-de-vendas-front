@@ -22,7 +22,7 @@ export const vuetify = createVuetify({
   //   }
   // },
   theme: {
-    defaultTheme: 'light', // Define o tema padrão
+    defaultTheme: 'dark', // Define o tema padrão
     themes: {
       light: {
         dark: false,
