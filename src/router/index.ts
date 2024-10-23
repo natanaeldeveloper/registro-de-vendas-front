@@ -1,4 +1,5 @@
 import { ROUTES } from '@/shared/consts'
+import OpenNewCashierView from '@/views/OpenNewCashierView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import StandDetailsView from '@/views/StandDetailsView.vue'
 import StandView from '@/views/StandView.vue'
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/bancas/:id',
       name: ROUTES.STANDS.DETAILS.NAME,
       component: StandDetailsView
+    },
+    {
+      path: '/caixa/novo',
+      name: ROUTES.CASHIER.CREATE.NAME,
+      component: OpenNewCashierView
     },
     {
       path: '/config',

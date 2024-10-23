@@ -3,10 +3,14 @@ import '@mdi/font/css/materialdesignicons.css' // Importar CSS dos ícones MDI
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { VNumberInput } from 'vuetify/labs/components'
 import 'vuetify/styles'
 
 export const vuetify = createVuetify({
-  components,
+  components: {
+    VNumberInput,
+    ...components
+  },
   directives,
   // locale: {
   //   locale: 'pt', // Define o idioma padrão para Português
@@ -18,7 +22,7 @@ export const vuetify = createVuetify({
   //   }
   // },
   theme: {
-    defaultTheme: 'dark', // Define o tema padrão
+    defaultTheme: 'light', // Define o tema padrão
     themes: {
       light: {
         dark: false,

@@ -10,6 +10,11 @@ export const ROUTES = {
       NAME: 'standDetails'
     }
   },
+  CASHIER: {
+    CREATE: {
+      NAME: 'createCashier'
+    }
+  },
   CONFIG: {
     ROOT: {
       NAME: 'configs'

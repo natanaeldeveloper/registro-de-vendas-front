@@ -23,7 +23,7 @@ const indicators = ref([
     id: 3,
     name: 'Isentos',
     value: 20,
-    color: 'primary'
+    color: 'grey'
   }
 ])
 
@@ -90,7 +90,7 @@ const links = ref([
           variant="text"
           color="primary"
           class="text-capitalize"
-          >Mais</v-btn
+          >Mais Detalhes</v-btn
         >
       </div>
       <div class="mt-4 d-flex justify-space-between">
@@ -117,7 +117,12 @@ const links = ref([
         </v-card>
       </div>
       <div class="mt-4">
-        <v-btn prepend-icon="mdi-plus" class="text-capitalize" color="primary" variant="outlined"
+        <v-btn
+          prepend-icon="mdi-plus"
+          class="text-capitalize"
+          color="primary"
+          variant="outlined"
+          @click="router.push({ name: ROUTES.CASHIER.CREATE.NAME })"
           >Abrir novo caixa</v-btn
         >
       </div>
@@ -167,8 +172,12 @@ const links = ref([
                 <span>R$ 20,00</span>
               </div>
               <div class="d-flex flex-column">
-                <span class="text-warning font-weight-bold">Efetuados</span>
+                <span class="text-warning font-weight-bold">Pendentes</span>
                 <span>R$ 20,00</span>
+              </div>
+              <div class="d-flex flex-column">
+                <span class="text-grey font-weight-bold">Isentos</span>
+                <span>R$ 0,00</span>
               </div>
             </div>
           </v-card-text>
