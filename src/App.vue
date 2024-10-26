@@ -9,5 +9,5 @@ import Overlay from './components/helpers/overlay/overlay.vue'
 
   <!-- Helpers -->
   <ModalFeedback />
-  <Overlay />
+  <!-- <Overlay /> -->
 </template>

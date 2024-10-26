@@ -1,5 +1,9 @@
 export interface ApiResponse<T> {
   data: T
+}
+
+export interface ApiResponseSuccess<T> {
+  data: T
   statusCode: number
   success?: string
   message: string | object

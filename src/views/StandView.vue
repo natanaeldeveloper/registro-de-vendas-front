@@ -1,28 +1,35 @@
 <script lang="ts" setup>
+import CreateStandModal from '@/components/stands/createStandModal/createStandModal.vue'
 import { ROUTES } from '@/shared/consts'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { type StandItem } from '@/shared/interfaces/stand'
+import { standService } from '@/shared/services/stand/standService'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
-const tab = ref(null)
-const stands = ref([
-  {
-    id: 1,
-    name: 'Banca de Cachorro-quente',
-    color: '#007AFF'
-  },
-  {
-    id: 2,
-    name: 'Banca de Tapioca',
-    color: '#4CD964'
-  },
-  {
-    id: 3,
-    name: 'Banca de Pastel',
-    color: '#FFCC00'
-  }
-])
+const tab = ref(0)
+const stands = ref<StandItem[]>([])
+
+const showStandCreationModal = ref(false)
+
+const getStandAll = async () => {
+  stands.value = await standService.getAll()
+}
+
+onMounted(() => {
+  getStandAll()
+  showStandCreationModal.value = route.hash === '#create'
+})
+
+watch(showStandCreationModal, (newValue) => {
+  router.replace({ hash: newValue ? '#create' : '' })
+})
+
+watch(route, (newValue) => {
+  showStandCreationModal.value = newValue.hash === '#create'
+})
 </script>
 
 <template>
@@ -56,7 +63,7 @@ const stands = ref([
               <h1 class="text-h6">{{ n.name }}</h1>
             </v-card-text>
           </v-card>
-          <v-card class="my-4 rounded-lg" variant="outlined" @click="null">
+          <v-card class="my-4 rounded-lg" variant="outlined" @click="showStandCreationModal = true">
             <v-card-text class="py-6 d-flex justify-center"
               ><v-icon size="40">mdi-plus</v-icon></v-card-text
             >
@@ -66,4 +73,5 @@ const stands = ref([
       </v-tabs-window>
     </v-card>
   </v-container>
+  <CreateStandModal v-model:dialog="showStandCreationModal" @saved="getStandAll" />
 </template>
