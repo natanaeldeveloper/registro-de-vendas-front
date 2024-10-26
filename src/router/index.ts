@@ -1,4 +1,5 @@
 import { ROUTES } from '@/shared/consts'
+import HomeView from '@/views/HomeView.vue'
 import OpenNewCashierView from '@/views/OpenNewCashierView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import StandDetailsView from '@/views/StandDetailsView.vue'
@@ -11,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: ROUTES.HOME.NAME,
-      component: StandView
+      component: HomeView
     },
     {
       path: '/bancas',

@@ -8,8 +8,7 @@ import { vuetify } from './plugins/vuetify'
 import router from './router'
 
 import './plugins/yup.config'
-import { useModalFeedbackStore } from './stores/modalFeedback'
-import { useOverlayStore } from './stores/overlay'
+import { useModalFeedbackStore, useOverlayStore } from './stores'
 import VueApexCharts from 'vue3-apexcharts'
 
 const app = createApp(App)

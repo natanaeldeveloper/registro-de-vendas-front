@@ -1,34 +1,31 @@
 <script lang="ts" setup>
-import CreateStandModal from '@/components/stands/createStandModal/createStandModal.vue'
+import StandCreationForm from '@/components/stands/standCreationForm/standCreationForm.vue'
 import { ROUTES } from '@/shared/consts'
-import { type StandItem } from '@/shared/interfaces/stand'
-import { standService } from '@/shared/services/stand/standService'
+import { useStandStore } from '@/stores'
 import { onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter()
-const route = useRoute()
-
 const tab = ref(0)
-const stands = ref<StandItem[]>([])
+const route = useRoute()
+const router = useRouter()
+const standStore = useStandStore()
+const standCreationModalVisibility = ref(false)
 
-const showStandCreationModal = ref(false)
+const closeStandCreationModal = () => {
+  standCreationModalVisibility.value = false
+}
 
-const getStandAll = async () => {
-  stands.value = await standService.getAll()
+const openStandCreationModal = () => {
+  standCreationModalVisibility.value = true
 }
 
 onMounted(() => {
-  getStandAll()
-  showStandCreationModal.value = route.hash === '#create'
+  standStore.getAll()
+  route.hash === '#create' ? closeStandCreationModal : openStandCreationModal
 })
 
-watch(showStandCreationModal, (newValue) => {
+watch(standCreationModalVisibility, (newValue) => {
   router.replace({ hash: newValue ? '#create' : '' })
-})
-
-watch(route, (newValue) => {
-  showStandCreationModal.value = newValue.hash === '#create'
 })
 </script>
 
@@ -51,7 +48,7 @@ watch(route, (newValue) => {
         <v-tabs-window-item>
           <v-card
             class="my-4 rounded-lg"
-            v-for="n in stands"
+            v-for="n in standStore.standList"
             :key="n.id"
             @click="router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id: n.id } })"
             :color="n.color"
@@ -63,7 +60,7 @@ watch(route, (newValue) => {
               <h1 class="text-h6">{{ n.name }}</h1>
             </v-card-text>
           </v-card>
-          <v-card class="my-4 rounded-lg" variant="outlined" @click="showStandCreationModal = true">
+          <v-card class="my-4 rounded-lg" variant="outlined" @click="openStandCreationModal">
             <v-card-text class="py-6 d-flex justify-center"
               ><v-icon size="40">mdi-plus</v-icon></v-card-text
             >
@@ -73,5 +70,12 @@ watch(route, (newValue) => {
       </v-tabs-window>
     </v-card>
   </v-container>
-  <CreateStandModal v-model:dialog="showStandCreationModal" @saved="getStandAll" />
+  <v-dialog
+    width="500"
+    @keydown.esc="closeStandCreationModal"
+    v-model="standCreationModalVisibility"
+    persistent
+  >
+    <StandCreationForm @cancel="closeStandCreationModal" @saved="closeStandCreationModal" />
+  </v-dialog>
 </template>

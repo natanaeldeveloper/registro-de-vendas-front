@@ -5,7 +5,7 @@ import httpClient from '@/utils/http/request'
 export default class StandService {
   async getAll() {
     const res = await httpClient.get<GetStandAllResponse>('stands')
-    return res.data.data
+    return res.data
   }
 
   async create(body: CreateStandBody) {
