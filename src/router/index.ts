@@ -25,7 +25,7 @@ const router = createRouter({
       component: StandDetailsView
     },
     {
-      path: '/caixa/novo',
+      path: '/bancas/:id/caixa/novo',
       name: ROUTES.CASHIER.CREATE.NAME,
       component: OpenNewCashierView
     },

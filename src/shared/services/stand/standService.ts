@@ -1,5 +1,9 @@
-import { type CreateStandResponse, type CreateStandBody } from '@/shared/interfaces/stand'
-import type { GetStandAllResponse } from '@/shared/interfaces/stand/getStandAll'
+import {
+  type CreateStandResponse,
+  type CreateStandBody,
+  type FindStandByIdResponse
+} from '@/shared/interfaces/stand'
+import type { GetStandAllResponse } from '@/shared/interfaces/stand/getAll'
 import httpClient from '@/utils/http/request'
 
 export default class StandService {
@@ -10,6 +14,11 @@ export default class StandService {
 
   async create(body: CreateStandBody) {
     const res = await httpClient.post<CreateStandResponse>('stands', body)
+    return res.data
+  }
+
+  async findById(id: string) {
+    const res = await httpClient.get<FindStandByIdResponse>(`stands/${id}`)
     return res.data
   }
 }

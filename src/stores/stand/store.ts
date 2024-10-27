@@ -4,7 +4,8 @@ import { defineStore } from 'pinia'
 
 export const useStandStore = defineStore('stands', {
   state: () => ({
-    standList: [] as StandItem[]
+    standList: [] as StandItem[],
+    currentStand: null as StandItem | null
   }),
   actions: {
     async getAll() {
@@ -14,6 +15,13 @@ export const useStandStore = defineStore('stands', {
     async create(body: CreateStandBody) {
       const res = await standService.create(body)
       this.standList.push(res.data)
+    },
+    async findCurrentStandById(id: string) {
+      const res = await standService.findById(id)
+      this.currentStand = res.data
+    },
+    resetData() {
+      this.currentStand = null
     }
   }
 })

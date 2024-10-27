@@ -2,6 +2,7 @@
 import { ROUTES } from '@/shared/consts'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 
 const paymentMethods = ref<string[]>([])

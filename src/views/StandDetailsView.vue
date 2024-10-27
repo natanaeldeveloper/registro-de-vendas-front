@@ -1,9 +1,17 @@
 <script lang="ts" setup>
 import { ROUTES } from '@/shared/consts'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useStandStore } from '@/stores'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
+const standStore = useStandStore()
+
+onMounted(() => {
+  const id = route.params['id'] as string
+  standStore.findCurrentStandById(id)
+})
 
 const indicators = ref([
   {
@@ -49,7 +57,7 @@ const links = ref([
 
 <template>
   <!-- HEADER -->
-  <v-card color="primary" variant="flat" class="rounded-0">
+  <v-card :color="standStore.currentStand?.color" variant="flat" class="rounded-0">
     <v-card-text>
       <div variant="text" class="d-flex justify-space-between">
         <v-btn
@@ -73,7 +81,7 @@ const links = ref([
           >Editar</v-btn
         >
       </div>
-      <h1 class="text-h5 py-4">Banca de Cachorro quente</h1>
+      <h1 class="text-h5 py-4">{{ standStore.currentStand?.name }}</h1>
     </v-card-text>
   </v-card>
   <!-- HEADER FIM -->
@@ -81,7 +89,7 @@ const links = ref([
   <!-- DETALHES DO CAIXA  -->
   <v-card variant="text">
     <v-card-text>
-      <h3 class="text-subtitle-1 text-grey">Caixa aberto</h3>
+      <!-- <h3 class="text-subtitle-1 text-grey">Caixa aberto</h3>
       <div class="d-flex justify-space-between align-center mt-2">
         <h1 class="text-h5">Hoje</h1>
         <v-btn
@@ -115,14 +123,15 @@ const links = ref([
           <h6 class="text-subtitle-1 font-weight-bold">{{ i.name }}</h6>
           <span class="text-subtitle-1 text-contrast">R$ {{ i.value.toFixed(2) }}</span>
         </v-card>
-      </div>
+      </div> -->
       <div class="mt-4">
         <v-btn
-          prepend-icon="mdi-plus"
+          append-icon="mdi-plus"
           class="text-capitalize"
           color="primary"
           variant="outlined"
           @click="router.push({ name: ROUTES.CASHIER.CREATE.NAME })"
+          block
           >Abrir novo caixa</v-btn
         >
       </div>
