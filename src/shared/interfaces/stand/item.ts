@@ -1,5 +1,5 @@
 export interface StandItem {
-  id: number
+  id: string
   name: string
   color: string
 }

@@ -1,25 +1,42 @@
 <script lang="ts" setup>
+import { ROUTES } from '@/shared/consts'
+import type { CreateCashierBody } from '@/shared/interfaces/cashier'
+import { useCashierStore } from '@/stores'
 import { useField, useForm } from 'vee-validate'
-import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import * as yup from 'yup'
-
-const editablePix = ref(false)
 
 const { handleReset, handleSubmit } = useForm({
   validationSchema: yup.object({
-    paymentMethods: yup.array().required().label('Métodos de pagamento'),
-    referenceDate: yup.date().required().label('Data de referência'),
-    description: yup.string().max(30).label('Descrição do caixa')
+    payment_ethods: yup.array().required().label('Métodos de pagamento'),
+    reference_date: yup.date().required().label('Data de referência'),
+    initial_cash: yup.number().required().label('Caixa inicial'),
+    description: yup.string().max(30).label('Descrição do caixa'),
+    pix_key: yup.string().required().label('Chave PIX'),
+    pix_recipient: yup.string().required().min(3).label('Destinatário da chave PIX')
   })
 })
 
-const paymentMethods = useField('paymentMethods')
-const referenceDate = useField('referenceDate')
-const initialCash = useField('initialCash')
+const paymentMethods = useField('payment_ethods')
+const referenceDate = useField('reference_date')
 const description = useField('description')
+const initialCash = useField('initial_cash')
+const pixKey = useField('pix_key')
+const pixRecipient = useField('pix_recipient')
+
+const cashierStore = useCashierStore()
+const router = useRouter()
+const route = useRoute()
 
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values))
+  const { id } = route.params
+  const body = {
+    ...values,
+    stand_id: id
+  } as CreateCashierBody
+  alert(JSON.stringify(body))
+  cashierStore.create(body)
+  router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id } })
 })
 </script>
 
@@ -77,7 +94,7 @@ const onSubmit = handleSubmit((values) => {
         </v-row>
 
         <template v-if="paymentMethods.value.value">
-          <div class="d-flex justify-space-between align-center">
+          <!-- <div class="d-flex justify-space-between align-center">
             <h6 class="text-subtitle-1 text-grey my-3">Informações do PIX</h6>
             <v-switch
               color="primary"
@@ -86,40 +103,36 @@ const onSubmit = handleSubmit((values) => {
               hide-details
               v-model="editablePix"
             ></v-switch>
-          </div>
+          </div> -->
           <v-row>
-            <v-col class="pb-0">
+            <v-col class="py-2">
               <v-text-field
                 label="Chave PIX"
                 density="comfortable"
                 variant="outlined"
-                :disabled="!editablePix"
+                v-model="pixKey.value.value"
+                :error-messages="pixKey.errorMessage.value"
               />
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="py-0">
+            <v-col class="py-2">
               <v-text-field
                 label="Nome do proprietário"
                 density="comfortable"
                 variant="outlined"
-                :disabled="!editablePix"
+                v-model="pixRecipient.value.value"
+                :error-messages="pixRecipient.errorMessage.value"
               />
             </v-col>
           </v-row>
         </template>
 
-        <v-row>
+        <!-- <v-row>
           <v-col class="d-flex ga-4 py-0">
             <v-switch inset color="primary" label="Permitir o adiamento de pagamentos"></v-switch>
           </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <v-btn color="primary" type="submit">Salvar</v-btn>
-          </v-col>
-        </v-row>
+        </v-row> -->
 
         <v-dialog max-width="500" transition="dialog-top-transition">
           <template v-slot:activator="{ props: activatorProps }">
@@ -213,6 +226,13 @@ const onSubmit = handleSubmit((values) => {
             </v-card>
           </template>
         </v-dialog>
+
+        <v-row>
+          <v-col class="d-flex justify-end ga-4">
+            <v-btn @click="handleReset" size="large" variant="outlined">Cancelar</v-btn>
+            <v-btn color="primary" type="submit" size="large">Salvar</v-btn>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
   </form>

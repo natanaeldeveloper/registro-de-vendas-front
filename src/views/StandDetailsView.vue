@@ -1,16 +1,28 @@
 <script lang="ts" setup>
 import { ROUTES } from '@/shared/consts'
-import { useStandStore } from '@/stores'
+import { useCashierStore, useStandStore } from '@/stores'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 const standStore = useStandStore()
+const cashierStore = useCashierStore()
+
+const formatDate = (date: Date) => {
+  return new Date(date)
+    .toLocaleDateString('pt-BR', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    })
+    .replace('.', '')
+}
 
 onMounted(() => {
   const id = route.params['id'] as string
   standStore.findCurrentStandById(id)
+  cashierStore.getAll(id)
 })
 
 const indicators = ref([
@@ -155,8 +167,8 @@ const links = ref([
       </div>
       <v-card class="overflow-x-auto d-flex ga-4 pt-2 pb-4" variant="text">
         <v-card
-          v-for="n in 10"
-          :key="n"
+          v-for="n in cashierStore.cashierList"
+          :key="n.id"
           min-width="300"
           class="rounded-xl"
           variant="flat"
@@ -165,9 +177,9 @@ const links = ref([
         >
           <v-card-text class="px-5">
             <div class="d-flex justify-space-between align-center text-subtitle-1 text-grey">
-              <span>25 Out 2024</span>
+              <span>{{ formatDate(n.reference_date) }}</span>
               <div>
-                <span>Feira do bai...</span>
+                <span>{{ n.description }}</span>
                 <v-icon class="ml-2">mdi-chevron-right</v-icon>
               </div>
             </div>
