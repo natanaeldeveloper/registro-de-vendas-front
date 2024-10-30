@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import OpenNewCashierForm from '@/components/cashier/openNewCashierForm/openNewCashierForm.vue'
 import { ROUTES } from '@/shared/consts'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
+const standId = route.params['id'] as string
 </script>
 
 <template>
@@ -14,7 +16,7 @@ const router = useRouter()
         <v-btn
           icon="mdi-arrow-left"
           variant="text"
-          @click="router.push({ name: ROUTES.STANDS.ROOT.NAME })"
+          @click="router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id: standId } })"
         ></v-btn>
         <v-btn
           variant="text"

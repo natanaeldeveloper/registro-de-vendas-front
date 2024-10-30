@@ -10,7 +10,6 @@ export type CreateCashierBody = {
   payment_methods: string[]
   pix_key: string
   pix_recipient: string
-  stand_id: string
   products_stock: {
     product_id: string
     count: number
