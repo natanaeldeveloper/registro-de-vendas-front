@@ -26,7 +26,7 @@ httpClient.interceptors.response.use(
       const data = error.response?.data as ApiResponseError
       modalFeedback.showModal('ERROR', {
         title: data.error,
-        message: data.message
+        message: Array.isArray(data.message) ? data.message[0] : data.message
       })
     }
 

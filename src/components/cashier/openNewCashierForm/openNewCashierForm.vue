@@ -1,12 +1,21 @@
 <script lang="ts" setup>
+import { cashierService } from '@/services/cashier/cashierService'
+import { productService } from '@/services/product/productService'
+import { ROUTES } from '@/shared/consts'
+import type { ProductItem } from '@/shared/interfaces'
 import type { CreateCashierBody } from '@/shared/interfaces/cashier'
-import { useCashierStore } from '@/stores'
+import { useModalFeedbackStore } from '@/stores'
 import { useField, useForm } from 'vee-validate'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import * as yup from 'yup'
 
-const editablePix = ref(false)
+const route = useRoute()
+const router = useRouter()
+const modalFeedback = useModalFeedbackStore()
+const productList = ref<ProductItem[]>([])
+const standId = ref<string>('')
+const productsStockList = ref<ProductItem[]>([])
 
 const { handleReset, handleSubmit } = useForm({
   validationSchema: yup.object({
@@ -14,12 +23,8 @@ const { handleReset, handleSubmit } = useForm({
     reference_date: yup.date().required().label('Data de referência'),
     initial_cash: yup.number().min(0).label('Caixa inicial'),
     description: yup.string().max(30).label('Descrição do caixa'),
-    pix_key: yup.string().when('isOptional', {
-      is: true,
-      then: yup.string().required().label('Chave PIX'),
-      otherwise: yup.string().label('Chave PIX')
-    }),
-    pix_recipient: yup.string().required().min(3).label('Destinatário da chave PIX')
+    pix_key: yup.string().label('Chave PIX'),
+    pix_recipient: yup.string().min(3).label('Destinatário da chave PIX')
   })
 })
 
@@ -30,12 +35,23 @@ const initialCash = useField('initial_cash')
 const pixKey = useField('pix_key')
 const pixRecipient = useField('pix_recipient')
 
-const cashierStore = useCashierStore()
-const route = useRoute()
-
 const onSubmit = handleSubmit((values) => {
-  const standId = route.params['id'] as string
-  cashierStore.create(values as CreateCashierBody, standId)
+  cashierService.create(values as CreateCashierBody, standId.value).then((res) => {
+    modalFeedback.showModal('SUCCESS', {
+      title: res.success,
+      message: res.message
+    })
+    handleReset()
+    router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id: `${standId.value}` } })
+  })
+})
+
+const addProductToStock = () => {}
+
+onMounted(async () => {
+  standId.value = route.params['id'] as string
+  const res = await productService.getAll(standId.value)
+  productList.value = res.data
 })
 </script>
 
@@ -90,24 +106,18 @@ const onSubmit = handleSubmit((values) => {
                 multiple
                 v-model="paymentMethods.value.value"
               >
-                <v-chip value="especie" text="Espécie" variant="outlined" filter></v-chip>
+                <v-chip value="cash" text="Espécie" variant="outlined" filter></v-chip>
                 <v-chip value="pix" text="PIX" variant="outlined" filter></v-chip>
-                <v-chip value="cartao" text="Cartão" variant="outlined" filter></v-chip>
+                <v-chip value="card" text="Cartão" variant="outlined" filter></v-chip>
               </v-chip-group>
             </v-col>
           </v-row>
 
-          <template>
-            <div class="d-flex justify-space-between align-center">
-              <h6 class="text-subtitle-1 text-grey my-3">Informações do PIX</h6>
-              <v-switch
-                color="primary"
-                label="Editar"
-                density="compact"
-                hide-details
-                v-model="editablePix"
-              ></v-switch>
-            </div>
+          <div class="d-flex justify-space-between align-center">
+            <h6 class="text-subtitle-1 text-grey my-3">Informações do PIX</h6>
+            <v-switch color="primary" label="Editar" density="compact" hide-details></v-switch>
+          </div>
+          <div>
             <v-row>
               <v-col class="py-2">
                 <v-text-field
@@ -130,8 +140,7 @@ const onSubmit = handleSubmit((values) => {
                 />
               </v-col>
             </v-row>
-          </template>
-
+          </div>
           <v-row>
             <v-col class="d-flex ga-4 py-0">
               <v-switch inset color="primary" label="Permitir o adiamento de pagamentos"></v-switch>
@@ -179,7 +188,9 @@ const onSubmit = handleSubmit((values) => {
                     append-inner-icon="mdi-magnify"
                     hide-no-data
                     menu-icon=""
-                    :items="['Tapioca', 'Cachorro quente', 'Pastel']"
+                    :items="productList"
+                    text-title="name"
+                    text-value="name"
                   >
                     <template v-slot:item="{ props, item }">
                       <v-list-item v-bind="props" title="" subtitle="">
@@ -189,15 +200,22 @@ const onSubmit = handleSubmit((values) => {
                             height="50"
                             image="https://static.wixstatic.com/media/a85c73_8e4f04aa2906481bb6945e4660aeb9bf~mv2.jpg/v1/fill/w_618,h_450,fp_0.50_0.41,q_80,enc_auto/capa-tapioca-tradicional.jpg"
                           ></v-card>
-                          <span class="text-body-2">{{ item.value }}</span>
+                          <span class="text-body-2">{{ item.raw.name }}</span>
                         </div>
                       </v-list-item>
+                    </template>
+                    <template v-slot:selection="{ item }">
+                      <span>{{ item.raw.name }}</span>
                     </template>
                   </v-autocomplete>
                 </v-card-title>
                 <v-card-text class="overflow-y-auto px-0">
                   <div class="d-flex justify-center flex-wrap ga-4">
-                    <div class="d-flex flex-column align-center ga-2" v-for="n in 10" :key="n">
+                    <div
+                      class="d-flex flex-column align-center ga-2"
+                      v-for="item in productList"
+                      :key="item.id"
+                    >
                       <v-card
                         height="120"
                         width="120"
@@ -210,7 +228,7 @@ const onSubmit = handleSubmit((values) => {
                       <span
                         class="text-caption d-inline-block text-truncate"
                         style="max-width: 120px"
-                        >Tapioca com ovo</span
+                        >{{ item.name }}</span
                       >
                       <v-number-input
                         :reverse="false"

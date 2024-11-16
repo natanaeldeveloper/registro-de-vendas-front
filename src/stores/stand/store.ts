@@ -1,5 +1,5 @@
 import type { CreateStandBody, StandItem } from '@/shared/interfaces/stand'
-import { standService } from '@/shared/services/stand/standService'
+import { standService } from '@/services/stand/standService'
 import { defineStore } from 'pinia'
 
 export const useStandStore = defineStore('stands', {

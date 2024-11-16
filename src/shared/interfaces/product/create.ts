@@ -1,7 +1,7 @@
 import type { ApiResponseSuccess } from '../apiResponse'
-import type { CashierItem } from './item'
+import type { ProductItem } from './item'
 
-export type CreateCashierBody = {
+export type CreateProductBody = {
   name: string
   description: string | null
   reference_date: Date | null
@@ -16,4 +16,4 @@ export type CreateCashierBody = {
   }[]
 }
 
-export type CreateCashierResponse = ApiResponseSuccess<CashierItem>
+export type CreateProductResponse = ApiResponseSuccess<ProductItem>

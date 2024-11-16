@@ -13,6 +13,7 @@ export default class CashierService {
   }
 
   async create(body: CreateCashierBody, standId: string) {
+    body = { ...body, future_payment: true, initial_cash: body.initial_cash ?? 0 }
     const res = await httpClient.post<CreateCashierResponse>(`stands/${standId}/cashiers`, body)
     return res.data
   }
