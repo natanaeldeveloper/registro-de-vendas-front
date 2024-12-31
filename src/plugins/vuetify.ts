@@ -27,9 +27,10 @@ export const vuetify = createVuetify({
       light: {
         dark: false,
         colors: {
-          background: '#F9F9F9', // Fundo claro neutro
+          background: '#FAFAFA', // Fundo claro neutro
           contrast: '#1C1C1E', // Fundo claro neutro
           contrast02: '#3A3A3C', // Fundo claro neutro
+          contrast03: '#EEEEEE', // Fundo claro neutro
           surface: '#FFFFFF', // Superfície branca clássica
           primary: '#007AFF', // Azul iOS (equivalente ao botão)
           secondary: '#5856D6', // Roxo suave, típico de Apple
@@ -46,6 +47,7 @@ export const vuetify = createVuetify({
           background: '#1C1C1E', // Preto com um leve tom de cinza
           contrast: '#F9F9F9', // Fundo claro neutro
           contrast02: '#E0E0E0',
+          contrast03: '#212121', // Fundo claro neutro
           surface: '#2C2C2E', // Superfície ligeiramente mais clara
           primary: '#0A84FF', // Azul destacado no tema escuro
           secondary: '#5E5CE6', // Roxo vibrante para contraste

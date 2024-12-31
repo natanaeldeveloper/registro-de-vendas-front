@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { useStandStore } from '@/stores'
+import { standService } from '@/services/stand/standService'
 import { useField, useForm } from 'vee-validate'
-import { getCurrentInstance, onBeforeUnmount } from 'vue'
+import { getCurrentInstance, onMounted } from 'vue'
 import * as yup from 'yup'
 
-const { proxy } = getCurrentInstance()!
-const standStore = useStandStore()
+const props = defineProps<{
+  standId: string
+}>()
 
-const emit = defineEmits(['cancel', 'saved'])
+const { proxy } = getCurrentInstance()!
+
+const emit = defineEmits(['cancel', 'updated'])
 
 const { handleSubmit, handleReset } = useForm({
   validationSchema: yup.object({
@@ -21,14 +24,25 @@ const color = useField('color')
 
 const onSubmit = handleSubmit(({ name, color }) => {
   proxy?.$overlay.start()
-  standStore.create({ name, color }).finally(() => {
+  standService.update(props.standId, { name, color }).finally(() => {
     proxy?.$overlay.stop()
-    emit('saved')
+    emit('updated')
   })
 })
 
-onBeforeUnmount(() => {
-  handleReset()
+const findStandById = (id: string) => {
+  standService.findById(id).then((res) => {
+    name.value.value = res.data.name ?? name.value.value
+    color.value.value = res.data.color ?? color.value.value
+  })
+}
+
+onMounted(() => {
+  findStandById(props.standId)
+})
+
+defineExpose({
+  handleReset
 })
 </script>
 
@@ -36,7 +50,7 @@ onBeforeUnmount(() => {
   <form @submit.prevent="onSubmit">
     <v-card>
       <v-card-title class="mx-3 mt-2">
-        <h1 class="text-h6">Adicionar nova banca</h1>
+        <h1 class="text-h6">Editar nova banca</h1>
       </v-card-title>
       <v-card-text>
         <v-row>

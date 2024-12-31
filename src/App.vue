@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import ModalFeedback from './components/helpers/modals/modalFeedback.vue'
-import Overlay from './components/helpers/overlay/overlay.vue'
 </script>
 
 <template>
-  <!-- Content -->
-  <RouterView />
+  <main class="bg-background">
+    <!-- Content -->
+    <RouterView />
 
-  <!-- Helpers -->
-  <ModalFeedback />
-  <!-- <Overlay /> -->
+    <!-- Helpers -->
+    <ModalFeedback />
+    <!-- <Overlay /> -->
+  </main>
 </template>
+
+<style scoped>
+main {
+  min-height: 100vh;
+}
+</style>

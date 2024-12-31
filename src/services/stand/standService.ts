@@ -1,13 +1,16 @@
 import {
-  type CreateStandResponse,
   type CreateStandBody,
-  type FindStandByIdResponse
+  type CreateStandResponse,
+  type FindStandByIdResponse,
+  type GetStandAllResponse,
+  type StandItem,
+  type UpdateStandBody
 } from '@/shared/interfaces/stand'
-import type { GetStandAllResponse } from '@/shared/interfaces/stand/getAll'
+import type { UpdateStandResponse } from '@/shared/interfaces/stand/update'
 import httpClient from '@/utils/http/request'
 
 export default class StandService {
-  async getAll() {
+  async getAll(): Promise<{ data: StandItem[] }> {
     const res = await httpClient.get<GetStandAllResponse>('stands')
     return res.data
   }
@@ -17,8 +20,18 @@ export default class StandService {
     return res.data
   }
 
+  async update(id: string, body: UpdateStandBody) {
+    const res = await httpClient.put<UpdateStandResponse>(`stands/${id}`, body)
+    return res.data
+  }
+
   async findById(id: string) {
     const res = await httpClient.get<FindStandByIdResponse>(`stands/${id}`)
+    return res.data
+  }
+
+  async delete(id: string) {
+    const res = await httpClient.delete<any>(`stands/${id}`)
     return res.data
   }
 }
