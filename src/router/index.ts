@@ -1,8 +1,8 @@
 import { ROUTES } from '@/shared/consts'
-import OpenNewCashierView from '@/views/OpenNewCashierView.vue'
+import OpenNewCashierView from '@/views/client/OpenNewCashierView.vue'
 import SettingsView from '@/views/SettingsView.vue'
-import StandDetailsView from '@/views/StandDetailsView.vue'
-import StandView from '@/views/StandView.vue'
+import StandDetailsView from '@/views/client/StandShowView.vue'
+import StandView from '@/views/client/StandListView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({

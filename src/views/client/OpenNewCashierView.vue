@@ -1,22 +1,25 @@
 <script lang="ts" setup>
-import OpenNewCashierForm from '@/components/cashier/openNewCashierForm/openNewCashierForm.vue'
+import OpenNewCashierForm from '@/components/client/cashier/createCashier/createCashier.vue'
 import { ROUTES } from '@/shared/consts'
+import { useStandStore } from '@/stores'
 import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
-const standId = route.params['id'] as string
+const { currentStand } = useStandStore()
 </script>
 
 <template>
   <!-- HEADER -->
-  <v-card variant="flat" color="background">
+  <v-card variant="flat" :color="currentStand?.color">
     <v-card-text>
       <div variant="text" class="d-flex justify-space-between">
         <v-btn
           icon="mdi-arrow-left"
           variant="text"
-          @click="router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id: standId } })"
+          @click="
+            router.push({ name: ROUTES.STANDS.DETAILS.NAME, params: { id: `${currentStand?.id}` } })
+          "
         ></v-btn>
         <v-btn
           variant="text"
@@ -28,7 +31,7 @@ const standId = route.params['id'] as string
         <h1 class="text-h5">
           <v-icon size="30" class="mr-3">mdi-printer-pos-plus</v-icon>Abrir novo caixa
         </h1>
-        <p class="text-grey text-subtitle-1">Texto descrivendo detalhes dessa tela</p>
+        <!-- <p class="text-subtitle-1">Texto descrivendo detalhes dessa tela</p> -->
       </div>
     </v-card-text>
   </v-card>

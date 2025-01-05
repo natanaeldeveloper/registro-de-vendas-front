@@ -1,70 +1,63 @@
 <script lang="ts" setup>
+import { cashierService } from '@/services/cashier/cashierService'
 import { ROUTES } from '@/shared/consts'
-import { useCashierStore, useStandStore } from '@/stores'
-import { onMounted, ref } from 'vue'
+import type { CashierItem } from '@/shared/interfaces'
+import { useStandStore } from '@/stores'
+import { updateColorTheme } from '@/utils/ui'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import EditStandModal from '../editStand/modal.vue'
 
 const router = useRouter()
 const route = useRoute()
 const standStore = useStandStore()
-const cashierStore = useCashierStore()
+const editStandModalRef = useTemplateRef('editStandModalRef')
 
-const formatDate = (date: Date) => {
-  return new Date(date)
-    .toLocaleDateString('pt-BR', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    })
-    .replace('.', '')
+const cashierList = ref<CashierItem[]>([])
+
+// const formatDate = (date: Date) => {
+//   return new Date(date)
+//     .toLocaleDateString('pt-BR', {
+//       day: 'numeric',
+//       month: 'short',
+//       year: 'numeric'
+//     })
+//     .replace('.', '')
+// }
+
+const openModalEditStand = () => {
+  const id = standStore.currentStand?.id ?? ''
+  editStandModalRef.value?.openModal({ id })
+}
+
+const handleFindCurrentStand = async () => {
+  const id = route.params['id'] as string
+  await standStore.findCurrentStandById(id)
+  updateColorTheme(standStore.currentStand?.color)
 }
 
 onMounted(() => {
-  const id = route.params['id'] as string
-  standStore.findCurrentStandById(id)
-  cashierStore.getAll(id)
+  handleFindCurrentStand()
 })
 
-const indicators = ref([
-  {
-    id: 1,
-    name: 'Efetuados',
-    value: 60,
-
-    color: 'success'
-  },
-  {
-    id: 2,
-    name: 'Pendentes',
-    value: 20,
-    color: 'warning'
-  },
-  {
-    id: 3,
-    name: 'Isentos',
-    value: 20,
-    color: 'grey'
-  }
-])
-
-const links = ref([
-  {
-    href: '',
-    label: 'Clientes'
-  },
-  {
-    href: '',
-    label: 'Produtos'
-  },
-  {
-    href: '',
-    label: 'Relatórios'
-  },
-  {
-    href: '',
-    label: 'Cardápio do dia'
-  }
-])
+// const links = ref([
+//   {
+//     href: '',
+//     label: 'Clientes'
+//   },
+//   {
+//     href: '',
+//     label: 'Produtos'
+//   },
+//   {
+//     href: '',
+//     label: 'Relatórios'
+//   },
+//   {
+//     href: '',
+//     label: 'Cardápio do dia'
+//   }
+// ])
 </script>
 
 <template>
@@ -84,20 +77,31 @@ const links = ref([
         ></v-btn>
       </div>
       <div class="d-flex justify-space-between align-center mt-4">
-        <v-icon size="35">mdi-store</v-icon>
-        <v-btn
-          append-icon="mdi-arrow-right
-"
-          variant="text"
-          class="text-capitalize"
-          >Editar</v-btn
-        >
+        <!-- <v-icon size="35">mdi-store</v-icon> -->
+        <h1 class="text-h5 py-4 px-4">{{ standStore.currentStand?.name }}</h1>
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn
+              icon="mdi-dots-vertical"
+              v-bind="props"
+              variant="text"
+              size="small"
+              @click.stop
+            />
+          </template>
+          <v-list density="comfortable">
+            <v-list-item link append-icon="mdi-pencil" @click="openModalEditStand"
+              >Editar</v-list-item
+            >
+            <!-- <v-list-item link append-icon="mdi-delete"> Remover </v-list-item> -->
+          </v-list>
+        </v-menu>
       </div>
-      <h1 class="text-h5 py-4">{{ standStore.currentStand?.name }}</h1>
     </v-card-text>
   </v-card>
   <!-- HEADER FIM -->
 
+  <EditStandModal ref="editStandModalRef" @updated="handleFindCurrentStand" />
   <!-- DETALHES DO CAIXA  -->
   <v-card variant="text">
     <v-card-text>
@@ -140,10 +144,10 @@ const links = ref([
         <v-btn
           append-icon="mdi-plus"
           class="text-capitalize"
+          size="large"
           color="primary"
           variant="outlined"
           @click="router.push({ name: ROUTES.CASHIER.CREATE.NAME })"
-          block
           >Abrir novo caixa</v-btn
         >
       </div>
@@ -152,7 +156,7 @@ const links = ref([
   <!-- DETALHES DO CAIXA FIM -->
 
   <!-- LISTA DE CAIXAS -->
-  <v-card variant="text">
+  <!-- <v-card variant="text">
     <v-card-text>
       <div class="d-flex justify-space-between align-center">
         <h1 class="text-subtitle-1 text-grey">Histórico de caixas</h1>
@@ -167,7 +171,7 @@ const links = ref([
       </div>
       <v-card class="overflow-x-auto d-flex ga-4 pt-2 pb-4" variant="text">
         <v-card
-          v-for="n in cashierStore.cashierList"
+          v-for="n in cashierList"
           :key="n.id"
           min-width="300"
           class="rounded-xl"
@@ -205,11 +209,11 @@ const links = ref([
         </v-card>
       </v-card>
     </v-card-text>
-  </v-card>
+  </v-card> -->
   <!-- LISTA DE CAIXAS FIM -->
 
   <!-- LINKS AUXILIARES -->
-  <v-card class="mx-2 mt-0" variant="text">
+  <!-- <v-card class="mx-2 mt-0" variant="text">
     <v-card-text class="d-flex flex-column ga-2 pt-0">
       <v-card
         v-for="link in links"
@@ -224,7 +228,7 @@ const links = ref([
         </v-card-text>
       </v-card>
     </v-card-text>
-  </v-card>
+  </v-card> -->
   <!-- LINKS AUXILIARES FIM -->
 </template>
 

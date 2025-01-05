@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import EditStandModal from '@/components/client/stands/editStand/modal.vue'
+import router from '@/router'
 import { standService } from '@/services/stand/standService'
+import { ROUTES } from '@/shared/consts'
 import type { StandItem } from '@/shared/interfaces'
 import { onMounted, ref, useTemplateRef, watch } from 'vue'
 import type { TabOptions } from './interfaces'
-import StandListItem from './standListItem.vue'
-import router from '@/router'
-import { ROUTES } from '@/shared/consts'
-import EditStandModal from '@/components/client/stands/editStand/modal.vue'
+import StandListItem from './standListItem/standListItem.vue'
 
 const editStandModalRef = useTemplateRef('editStandModalRef')
 

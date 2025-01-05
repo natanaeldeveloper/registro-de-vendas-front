@@ -8,16 +8,20 @@ const theme = useTheme()
 const toggleTheme = () => {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
+
+const redirectBack = () => {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    router.push({ name: ROUTES.STANDS.ROOT.NAME })
+  }
+}
 </script>
 
 <template>
   <v-container>
     <v-card variant="text" class="mb-2">
-      <v-btn
-        icon="mdi-arrow-left"
-        variant="text"
-        @click="router.push({ name: ROUTES.HOME.NAME })"
-      ></v-btn>
+      <v-btn icon="mdi-arrow-left" variant="text" @click="redirectBack"></v-btn>
     </v-card>
     <v-card variant="text">
       <v-list density="comfortable">

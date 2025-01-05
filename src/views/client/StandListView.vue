@@ -2,6 +2,8 @@
 import CreateStandModal from '@/components/client/stands/createStand/modal.vue'
 import StandList from '@/components/client/stands/standList/standList.vue'
 import { ROUTES } from '@/shared/consts'
+import { updateColorTheme } from '@/utils/ui'
+import { onMounted } from 'vue'
 import { useTemplateRef } from 'vue'
 
 const createStandModalRef = useTemplateRef('createStandModalRef')
@@ -18,6 +20,10 @@ const updateStandList = () => {
     standListRef.value.handleUpdateStandList()
   }
 }
+
+onMounted(() => {
+  updateColorTheme(undefined)
+})
 </script>
 
 <template>
