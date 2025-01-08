@@ -1,15 +1,11 @@
-<script lang="ts" setup>
-import OpenNewCashierForm from '@/components/client/cashier/createCashier/createCashier.vue'
-import { ROUTES } from '@/shared/consts'
-import { useStandStore } from '@/stores'
-import { useRouter } from 'vue-router'
+<!-- <script lang="ts" setup>
+import { vuetify } from '@/plugins/vuetify'
 
-const router = useRouter()
-const { currentStand } = useStandStore()
+defineProps<{
+  color?: typeof vuetify.theme.current.value.colors
+}>()
 </script>
-
 <template>
-  <!-- HEADER -->
   <v-card variant="flat" :color="currentStand?.color">
     <v-card-text>
       <div variant="text" class="d-flex justify-space-between">
@@ -26,13 +22,12 @@ const { currentStand } = useStandStore()
           @click="router.push({ name: ROUTES.CONFIG.ROOT.NAME })"
         ></v-btn>
       </div>
-      <div class="d-flex flex-column px-2 py-3">
-        <h1 class="text-h6">
+      <div class="d-flex flex-column px-2 py-8">
+        <h1 class="text-h5">
           <v-icon size="30" class="mr-3">mdi-printer-pos-plus</v-icon>Abrir novo caixa
         </h1>
+        <p class="text-subtitle-1">Texto descrivendo detalhes dessa tela</p>
       </div>
     </v-card-text>
   </v-card>
-  <!-- FORM -->
-  <OpenNewCashierForm />
-</template>
+</template> -->

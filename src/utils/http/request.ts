@@ -3,7 +3,7 @@ import { useModalFeedbackStore } from '@/stores/modalFeedback'
 import axios, { AxiosError, type AxiosResponse } from 'axios'
 
 const httpClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://registro-de-vendas-tdd.onrender.com',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'

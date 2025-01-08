@@ -8,6 +8,7 @@ import { VNumberInput } from 'vuetify/labs/components'
 import 'vuetify/styles'
 
 const primaryColor = sessionStorageService.getItem('ui-primary-color')
+const currentTheme = sessionStorageService.getItem('current-theme')
 
 export const vuetify = createVuetify({
   components: {
@@ -25,7 +26,7 @@ export const vuetify = createVuetify({
   //   }
   // },
   theme: {
-    defaultTheme: 'dark', // Define o tema padrão
+    defaultTheme: currentTheme ?? 'light', // Define o tema padrão
     themes: {
       light: {
         dark: false,
