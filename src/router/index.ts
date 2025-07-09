@@ -5,6 +5,7 @@ import StandDetailsView from '@/views/client/StandShowView.vue'
 import StandView from '@/views/client/StandListView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import NewSale from '@/views/NewSale.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,11 @@ const router = createRouter({
       path: '/',
       name: ROUTES.HOME.NAME,
       component: HomeView
+    },
+    {
+      path: '/nova-venda',
+      name: ROUTES.NEW_SALE.NAME,
+      component: NewSale
     },
     // {
     //   path: '/bancas',

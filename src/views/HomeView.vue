@@ -40,7 +40,7 @@ const summaryDay = ref([
 const navigation = ref([
   {
     title: 'Nova Venda',
-    href: '#cobranca',
+    routeName: ROUTES.NEW_SALE.NAME,
     icon: 'add'
   },
   {
@@ -122,13 +122,12 @@ const navigation = ref([
         <div class="d-flex py-4 px-4 justify-center" style="width: max-content">
           <v-card
             variant="text"
-            height="120"
             v-for="item in navigation"
             :key="item.title"
-            @click="() => {}"
-            class="d-flex flex-column justify-center align-center rounded-xl ga-2 px-3"
+            class="d-flex flex-column justify-center align-center rounded-xl ga-2 px-3 py-3"
+            @click="router.push({ name: ROUTES.NEW_SALE.NAME })"
           >
-            <v-card class="rounded-circle" height="70" width="70" variant="outlined">
+            <v-card class="rounded-circle" height="60" width="60" variant="outlined">
               <v-card-text class="d-flex align-center justify-center h-100 flex-column text-center">
                 <span
                   class="material-symbols-outlined"

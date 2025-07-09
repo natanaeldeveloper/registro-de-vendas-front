@@ -2,6 +2,9 @@ export const ROUTES = {
   HOME: {
     NAME: 'home'
   },
+  NEW_SALE: {
+    NAME: 'newSale'
+  },
   STANDS: {
     ROOT: {
       NAME: 'stands'
