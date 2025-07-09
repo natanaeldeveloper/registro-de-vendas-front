@@ -2,8 +2,10 @@ import type { ApiResponseError } from '@/shared/interfaces'
 import { useModalFeedbackStore } from '@/stores/modalFeedback'
 import axios, { AxiosError, type AxiosResponse } from 'axios'
 
+const apiUrl = import.meta.env.VITE_API_URL
+
 const httpClient = axios.create({
-  baseURL: 'https://registro-de-vendas-tdd.onrender.com',
+  baseURL: apiUrl,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'

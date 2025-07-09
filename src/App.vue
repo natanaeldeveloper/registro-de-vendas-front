@@ -3,7 +3,16 @@ import ModalFeedback from './components/helpers/modals/modalFeedback.vue'
 </script>
 
 <template>
-  <main class="bg-background">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet"
+  />
+  <main>
     <!-- Content -->
     <RouterView />
 
